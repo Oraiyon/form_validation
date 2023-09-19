@@ -67,7 +67,6 @@ const validateConfirmPassword = () => {
     }
 }
 
-
 const validateForm = () => {
     validateEmail()
     validateCountry()
