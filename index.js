@@ -82,12 +82,25 @@ const validateForm = () => {
     validateConfirmPassword()
 }
 
+const removeStyle = (element) => {
+    element.classList.remove("activeError")
+    element.setAttribute("style", "border-bottom: 1px solid rgb(29, 29, 29);")
+}
+
+const removeAllStyles = () => {
+    removeStyle(email)
+    removeStyle(country)
+    removeStyle(zipCode)
+    removeStyle(password)
+    removeStyle(confirmPassword)
+}
+
 form.addEventListener("submit", (e) => {
     e.preventDefault()
     if (email.validity.valid && country.validity.valid && zipCode.validity.valid && password.validity.valid && confirmPassword.validity.valid) {
         console.log("Submitted")
-        // .activeError still in elements after submit
         validateForm()
+        removeAllStyles();
         form.reset()
     } else {
         validateForm()
