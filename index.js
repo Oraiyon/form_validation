@@ -31,6 +31,7 @@ const validateCountry = () => {
         country.setAttribute("style", "border-bottom: 2px solid green")
     }
 }
+
 const validateZipCode = () => {
     if (zipCode.validity.valueMissing) {
         zipCodeError.classList.add("activeError");
@@ -56,6 +57,7 @@ const validatePassword = () => {
         password.setAttribute("style", "border-bottom: 2px solid green")
     }
 }
+
 const validateConfirmPassword = () => {
     if (confirmPassword.value !== password.value){
         confirmPasswordError.classList.add("activeError")
@@ -90,7 +92,7 @@ const removeAllStyles = () => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    if (email.validity.valid && country.validity.valid && zipCode.validity.valid && password.validity.valid && confirmPassword.validity.valid && password.value === confirmPassword.value) {
+    if (email.validity.valid && country.validity.valid && zipCode.validity.valid && password.validity.valid && password.value === confirmPassword.value) {
         validateForm()
         removeAllStyles();
         form.reset()
