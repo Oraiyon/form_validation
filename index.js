@@ -10,14 +10,22 @@ const passwordError = document.querySelector(".passwordError")
 const confirmPassword = document.querySelector(".confirmPassword")
 const confirmPasswordError = document.querySelector(".confirmPasswordError")
 
+const setRedBorder = (element) => {
+    element.setAttribute("style", "border-bottom: 2px solid red")
+}
+
+const setGreenBorder = (element) => {
+    element.setAttribute("style", "border-bottom: 2px solid green")
+}
+
 const validateEmail = () => {
     if (email.validity.valueMissing || !email.validity.valid) {
         emailError.classList.add("activeError");
         emailError.innerText = "Email Required"
-        email.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(email);
     } else {
         emailError.innerText = ""
-        email.setAttribute("style", "border-bottom: 2px solid green")
+        setGreenBorder(email)
     }
 }
 
@@ -25,10 +33,10 @@ const validateCountry = () => {
     if (country.validity.valueMissing) {
         countryError.classList.add("activeError");
         countryError.innerText = "Country Required"
-        country.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(country)
     } else {
         countryError.innerText = ""
-        country.setAttribute("style", "border-bottom: 2px solid green")
+        setGreenBorder(country)
     }
 }
 
@@ -36,14 +44,14 @@ const validateZipCode = () => {
     if (zipCode.validity.valueMissing) {
         zipCodeError.classList.add("activeError");
         zipCodeError.innerText = "Zip Code Required"
-        zipCode.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(zipCode)
     } else if (zipCode.validity.rangeUnderflow || zipCode.validity.rangeOverflow) {
         zipCodeError.classList.add("activeError");
         zipCodeError.innerText = "Zip Codes Are 5 Numbers Long"
-        zipCode.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(zipCode)
     } else {
         zipCodeError.innerText = ""
-        zipCode.setAttribute("style", "border-bottom: 2px solid green")
+        setGreenBorder(zipCode)
     }
 }
 
@@ -51,10 +59,10 @@ const validatePassword = () => {
     if (password.validity.valueMissing) {
         passwordError.classList.add("activeError");
         passwordError.innerText = "Password Required"
-        password.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(password)
     } else {
         passwordError.innerText = ""
-        password.setAttribute("style", "border-bottom: 2px solid green")
+        setGreenBorder(password)
     }
 }
 
@@ -62,10 +70,10 @@ const validateConfirmPassword = () => {
     if (confirmPassword.value !== password.value){
         confirmPasswordError.classList.add("activeError")
         confirmPasswordError.innerText = "Match Your Password"
-        confirmPassword.setAttribute("style", "border-bottom: 2px solid red")
+        setRedBorder(confirmPassword)
     } else {
         confirmPasswordError.innerText = ""
-        confirmPassword.setAttribute("style", "border-bottom: 2px solid green")
+        setGreenBorder(confirmPassword)
     }
 }
 
@@ -100,3 +108,25 @@ form.addEventListener("submit", (e) => {
         validateForm()
     }
 })
+
+const validateOnFocus = (input) => {
+    input.addEventListener("focusout", () => {
+        if (input === email) {
+            validateEmail();
+        } else if (input === country) {
+            validateCountry();
+        } else if (input === zipCode) {
+            validateZipCode();
+        } else if (input === password) {
+            validatePassword();
+        } else {
+            validateConfirmPassword();
+        }
+    });
+};
+
+validateOnFocus(email)
+validateOnFocus(country)
+validateOnFocus(zipCode)
+validateOnFocus(password)
+validateOnFocus(confirmPassword)
